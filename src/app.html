@@ -1,5 +1,5 @@
 <template>
-  <require from='./sierpinski-triangle'></require>
+  <require from='./sierpinski-triangle.html'></require>
   <style>
     .app {
       position: absolute;
@@ -11,7 +11,12 @@
       background: #eee;
     }
   </style>
-  <h1>Aurelia Fiber Example</h1>
+  <h1>Aurelia Perf Example
+    <label style='font-size: 14px;'>
+      <input type='checkbox' checked.bind='haveFun' style='width: 16px; height: 16px;' />
+      Have fun
+    </label>
+  </h1>
   <div class='app' css='transform: ${transform};'>
     <div as-element='sierpinski-triangle' x.bind='0' y.bind='0' size.bind='1000' text.bind='seconds'></div>
   </div>

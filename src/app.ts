@@ -1,3 +1,5 @@
+import { observable } from "aurelia-framework";
+
 export class App {
   message = 'Hello World!';
 
@@ -6,13 +8,25 @@ export class App {
 
   transform = '';
 
+  @observable()
+  haveFun: boolean;
+
+  intervalID: any;
+
   attached() {
     this.tick0();
     this.intervalID = setInterval(this.tick0, 1000);
     requestAnimationFrame(this.tick);
   }
 
-  intervalID: any;
+  haveFunChanged(shouldHaveFun: boolean) {
+    if (shouldHaveFun) {
+      clearInterval(this.intervalID);
+    } else {
+      this.intervalID = setInterval(this.tick0, 1000);
+    }
+  }
+
   tick0 = () => {
     this.seconds = (this.seconds % 10) + 1;
     // this.intervalID = setInterval(this.tick0, 1000);
@@ -23,7 +37,9 @@ export class App {
     let t = (elapsed / 1000) % 10;
     let scale = 1 + (t > 5 ? 10 - t : t) / 10;
     this.transform = 'scaleX(' + (scale / 2.1) + ') scaleY(0.7) translateZ(0.1px)';
-    // this.seconds = (this.seconds % 10) + 1;
+    if (this.haveFun) {
+      this.seconds = (this.seconds % 10) + 1;
+    }
     requestAnimationFrame(this.tick);
   }
 }
